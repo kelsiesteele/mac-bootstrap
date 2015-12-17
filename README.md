@@ -2,7 +2,7 @@
 
 The purpose of this script is to provision a new machine running a fresh install of OS X. It includes the software, dotfiles, and general preference I use for Ruby on Rails development. The command line environment is based on zsh, vim and tmux running in iTerm 2.
 
-The [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) script is very specific to the Mac platform. It has been successfully tested on the following versions of OS X:
+The [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/mac-mini/bootstrap) script is very specific to the Mac platform. It has been successfully tested on the following versions of OS X:
 
 * Yosemite (10.10)
 * El Capitan (10.11)
@@ -35,12 +35,12 @@ Reboot, check for additional updates, then reinstall, reboot if needed.
 To install with a one-liner, run this:
 
 ```sh
-curl --remote-name https://raw.githubusercontent.com/joshukraine/mac-bootstrap/master/bootstrap && sh bootstrap 2>&1 | tee ~/bootstrap.log
+curl --remote-name https://raw.githubusercontent.com/joshukraine/mac-bootstrap/mac-mini/bootstrap && sh bootstrap 2>&1 | tee ~/bootstrap.log
 ```
 
 Want to read through the script first?
 ```sh
-curl --remote-name https://raw.githubusercontent.com/joshukraine/mac-bootstrap/master/bootstrap
+curl --remote-name https://raw.githubusercontent.com/joshukraine/mac-bootstrap/mac-mini/bootstrap
 less bootstrap
 sh bootstrap 2>&1 | tee ~/bootstrap.log
 ```
@@ -109,11 +109,11 @@ No one else's development setup will ever be a perfect match for you. That said,
 
 1) Fork this repo and clone your new fork to your local machine.
 
-2) Review [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) and determine which sections you want to use.
+2) Review [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/mac-mini/bootstrap) and determine which sections you want to use.
 
 * Section 1: Laptop is awesome, but [check what it does](https://github.com/joshukraine/laptop) before installing.
 * Section 2: Use `oh-my-zsh`? Prefer to use bash instead?
-* Section 3: The dotfiles. Update the `$DOTFILES_*` variables (see [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) under "Variable declarations") to reference your dotfiles. As a starting point, you can [fork mine](https://github.com/joshukraine/dotfiles) and then point to your fork.
+* Section 3: The dotfiles. Update the `$DOTFILES_*` variables (see [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/mac-mini/bootstrap) under "Variable declarations") to reference your dotfiles. As a starting point, you can [fork mine](https://github.com/joshukraine/dotfiles) and then point to your fork.
 * Section 4: Install tmux-related utiltities?
 * Section 5: Install Ukrainian spell-check dictionaries?
 * Section 6: Install fixed-width fonts?
@@ -126,7 +126,7 @@ No one else's development setup will ever be a perfect match for you. That said,
 
 4) Update the README with your own info, instructions/reminders so you don't forget what you did, and especially the correct install URL:
 
-	curl --remote-name https://raw.githubusercontent.com/<your-github-username>/mac-bootstrap/master/bootstrap && sh bootstrap 2>&1 | tee ~/boostrap.log
+	curl --remote-name https://raw.githubusercontent.com/<your-github-username>/mac-bootstrap/mac-mini/bootstrap && sh bootstrap 2>&1 | tee ~/boostrap.log
 
 5) Run the script on your machine and wait for the first error. :) Then fix, commit, push, and repeat.
 
