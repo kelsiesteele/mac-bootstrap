@@ -25,10 +25,10 @@ fancy_echo() { # Thank you, thoughtbot. :)
 # Set custom variables                                                        #
 ###############################################################################
 
-COMPUTER_NAME="Joshua's MacBook Pro"
-HOST_NAME="joshuas-mbp"
-LOCAL_HOST_NAME="joshuas-mbp"
-NET_BIOS_NAME="joshuas-mbp"
+COMPUTER_NAME="Kelsie's MacBook Pro"
+HOST_NAME="kelsies-mba"
+LOCAL_HOST_NAME="kelsies-mba"
+NET_BIOS_NAME="kelsies-mba"
 TIME_ZONE="Europe/Kiev"
 
 
