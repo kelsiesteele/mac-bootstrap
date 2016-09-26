@@ -26,7 +26,7 @@ COMMANDLINE_TOOLS="/Library/Developer/CommandLineTools"
 OLD_DOTFILES_BACKUP=$HOME/old_dotfiles_backup
 DICTIONARY_DIR=$HOME/Library/Spelling
 
-DOTFILES_REPO_URL="https://github.com/kelsiesteeleukraine/dotfiles.git"
+DOTFILES_REPO_URL="https://github.com/kelsiesteele/dotfiles.git"
 DOTFILES_BRANCH="master"
 DOTFILES_DIR=$HOME/dotfiles
 
