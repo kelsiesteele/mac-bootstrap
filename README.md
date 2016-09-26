@@ -1,20 +1,20 @@
-# Mac Bootstrap
+Mac Bootstrap
+=============
 
-The purpose of this script is to provision a new machine running a fresh install of OS X. It includes the software, dotfiles, and general preference I use for Ruby on Rails development. The command line environment is based on zsh, vim and tmux running in iTerm 2.
+![mac-bootstrap screenshot](https://s3.amazonaws.com/images.jsua.co/mac-bootstrap-screenshot.jpg)
 
-The [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) script is very specific to the Mac platform. It has been successfully tested on the following versions of OS X:
+The purpose of this script is to provision a new machine running a fresh install of macOS. It includes the software, dotfiles, and general preference I use for Ruby-based web development. The command line environment is based on Zsh (via [Oh-My-Zsh](http://ohmyz.sh/)), Vim and Tmux running in [iTerm2](https://www.iterm2.com/).
 
-* Yosemite (10.10)
+The [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) script is very specific to the Mac platform. It has been successfully tested on the following versions of macOS:
+
 * El Capitan (10.11)
+* Sierra (10.12)
 
-&#9657; **Looking for dotfiles only? Check out [My Dotfiles for OS X](https://github.com/joshukraine/dotfiles)**
-
-&#9657; **Running desktop Linux? Check out [My Dotfiles for Linux Desktop](https://github.com/joshukraine/linux-desktop)**
-
-&#9657; **Need just the basics for a headless Linux server? Check out [My Dotfiles for Linux Server](https://github.com/joshukraine/linux-server)**
+&#9657; **Looking for dotfiles only? Check out [My Dotfiles for macOS](http://jsua.co/dotfiles)**
 
 
-### Prerequisites
+Prerequisites
+-------------
 
 Make sure your software is up to date:
 
@@ -29,8 +29,11 @@ Reboot, check for additional updates, then reinstall, reboot if needed.
 	sudo softwareupdate -l
 	sudo softwareupdate -i -a
 
+Sign in to your iCloud account: System Preferences > iCloud. (If you don't sign in before running the `bootstrap` script, [`mas-cli`](https://github.com/argon/mas) will not be able to install apps from the Mac App Store.)
 
-### Installation
+
+Installation
+------------
 
 To install with a one-liner, run this:
 
@@ -48,79 +51,83 @@ sh bootstrap 2>&1 | tee ~/bootstrap.log
 WARNING: This script will ask for your admin password multiple times. You'll need to babysit it for a while. :)
 
 
-### What does it do?
+What does it do?
+----------------
 
-When you invoke `bootstrap`, this is what it does in a nutshell:
+When you invoke `bootstrap`, here's what it does:
 
-* Check for command line tools to be installed. The script will exit if they aren't found.
-* Run my fork of thoughtbot's [Laptop script](https://github.com/joshukraine/laptop). This is a provisioning script which installs lots of goodies like Homebrew, rbenv, postgres, etc.
-* Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh).
-* Clone [My Dotfiles for OS X](https://github.com/joshukraine/dotfiles) and symlink them to `$HOME`.
-* ~~Set up some basic directories in `$HOME`.~~
-* Install [xkbswitch](https://github.com/joshukraine/xkbswitch-macosx) for displaying current language input source in tmux status bar.
-* Install Ukrainian spell-check dictionaries.
-* Install several fixed-width fonts.
-* Install Vundle and plugins for vim.
-* Install various packages via [Homebrew](http://brew.sh/).
-* Install OS X software via [Cask](http://caskroom.io/).
-* Set a variety of OS X defaults.
-* Customize the OS X dock.
+* Step 1: Run my adaptation of thoughtbot's [Laptop script](https://github.com/thoughtbot/laptop). This is a provisioning script which installs lots of goodies like Homebrew, rbenv, postgres, etc. My version is now stored locally in this repo under [`install/laptop`](https://github.com/joshukraine/mac-bootstrap/blob/master/install/laptop). Step 1 also sets up a [Brewfile](https://github.com/Homebrew/homebrew-bundle#usage), installing a variety of Homebrew packages, casks, and now [Mac App Store apps](https://github.com/argon/mas)!
+* Step 2: Install [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh).
+* Step 3: Install [NVM](https://github.com/creationix/nvm) for managing Node.js versions.
+* Step 4: Clone [My Dotfiles for macOS](http://jsua.co/dotfiles) and symlink them to `$HOME`.
+* Step 5: Install various [executable scripts](https://github.com/joshukraine/mac-bootstrap/tree/master/bin) (for Tmux and Git) to `$HOME/bin`.
+* Step 6: Install [Tmuxinator](https://github.com/tmuxinator/tmuxinator) for managing tmux sessions.
+* Step 7: Install [Ukrainian spell-check dictionaries](http://extensions.services.openoffice.org/en/project/ukrainian-dictionary). Step 7 also installs [xkbswitch](https://github.com/joshukraine/xkbswitch-macosx) for displaying current language input source in Tmux status bar.
+* Step 8: Install several [fixed-width fonts](https://github.com/powerline/fonts).
+* Step 9: Install [Vundle](https://github.com/VundleVim/Vundle.vim.git) and plugins for Vim.
+* Step 10: Set a variety of [macOS defaults](https://github.com/joshukraine/mac-bootstrap/blob/master/install/macos-defaults). (adapted from [https://mths.be/macos](https://mths.be/macos)) Step 10 also customizes the [macOS dock](https://github.com/kcrawford/dockutil).
 
 NOTE: Previously, I used the `bootstrap` script to set up many of the standard directories I use in my work. But since I now have [Dropbox Pro](https://db.tt/6kiw9mn9), all those directories are downloaded automatically after Dropbox is installed. Once they've synced, I symlink them into place in `$HOME`.
 
 
-### Post-install Tasks
+Post-install Tasks
+------------------
 
 After running `bootstrap` there are still a few things that need to be done.
 
 * Restart your machine in order for some changes to take effect.
-* Install software from Mac App Store.
-* Set up iTerm 2 profile (see details below).
+* ~~Install software from Mac App Store.~~ (Thank you [mas-cli](https://github.com/argon/mas)!)
+* Complete [Brew Bundle](https://github.com/Homebrew/homebrew-bundle) with `brew bundle install --global`
+* Set up iTerm2 profile (see details below).
 * Add personal data to `~/.gitconfig.local` and `~/.zshrc.local`.
-* Set up desired OS X keyboard shortcuts (see list below)
+* Set up desired macOS keyboard shortcuts (see list below)
 
 
-### Setting up iTerm 2
+Setting up iTerm2
+----------------
 
-Thanks to a [great blog post](http://stratus3d.com/blog/2015/02/28/sync-iterm2-profile-with-dotfiles-repository/) by Trevor Brown, I learned that you can quickly set up iTerm 2 by exporting your profile. Here are the steps.
+Thanks to a [great blog post](http://stratus3d.com/blog/2015/02/28/sync-iterm2-profile-with-dotfiles-repository/) by Trevor Brown, I learned that you can quickly set up iTerm2 by exporting your profile. Here are the steps.
 
-1. Open iTerm 2.
-2. Select iTerm 2 > Preferences.
+1. Open iTerm2.
+2. Select iTerm2 > Preferences.
 3. Under the General tab, check the box labeled "Load preferences from a custom folder or URL:"
 4. Press "Browse" and point it to `~/dotfiles/iterm2/com.googlecode.iterm2.plist`.
-5. Restart iTerm 2.
+5. Restart iTerm2.
 
 
-### OS X Keyboard Shortcuts
+macOS Keyboard Shortcuts
+------------------------
 
-These are my (current) primary OS X keyboard shortcuts:
+These are my (current) primary macOS keyboard shortcuts:
 
 * Alfred: &#8984;Space
 * Spotlight search: &#8984;&#8679;Space
 * Switch input source: &#8963;&#8679;Space
 * Fantastical: &#8997;&#8984;Space
-* Things: &#8963;Space
-* iTerm hotkey window: &#8997;Space
+* OmniFocus: &#8963;&#8997;Space
+* iTerm2 hotkey window: &#8997;Space
+* Remap Caps Lock to CTRL (anyone know a way to automate this?)
 
 
-### How to personalize Mac Bootstrap for your own use.
+How to personalize Mac Bootstrap for your own use.
+--------------------------------------------------
 
 No one else's development setup will ever be a perfect match for you. That said, if your needs are close enough to mine, you might benefit from using the same shell scripts and overall structure, and just swapping out the particulars with your own. Here's my recommended approach to doing that:
 
 1) Fork this repo and clone your new fork to your local machine.
 
-2) Review [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) and determine which sections you want to use.
+2) Review the 10 steps in [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) and make your own customizations. Here's an overview of what's going on:
 
-* Section 1: Laptop is awesome, but [check what it does](https://github.com/joshukraine/laptop) before installing.
-* Section 2: Use `oh-my-zsh`? Prefer to use bash instead?
-* Section 3: The dotfiles. Update the `$DOTFILES_*` variables (see [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) under "Variable declarations") to reference your dotfiles. As a starting point, you can [fork mine](https://github.com/joshukraine/dotfiles) and then point to your fork.
-* Section 4: Install tmux-related utiltities?
-* Section 5: Install Ukrainian spell-check dictionaries?
-* Section 6: Install fixed-width fonts?
-* Section 7: Use Vundle? If you prefer a different plugin manager, you can add the code for that to this section.
-* Section 8: Check the list of [Homebrew](http://brew.sh/) formulae in `install/brew`. Add or remove packages to suite your needs.
-* Section 9: Check the list of [Cask](http://caskroom.io/) apps in `install/brew-cask`. Add or remove apps to suite your needs.
-* Section 10: Review general OS X settings in `install/osx-defaults` and adjust as needed. `install/osx-dock` ensures that the dock contains only the apps you select. Adjust as desired. (NOTE: The `osx-dock` script depends on the `dockutil` package installed by Homebrew in `brew`.)
+* Step 1 (required): Take a look at [Laptop](https://github.com/joshukraine/mac-bootstrap/blob/master/install/laptop) and see what you might want to tweak. One of the biggest things is the Brewfile, which you can find in this repo under `install/Brewfile`. Here you can customize all the packages, casks, and MAS apps that will be installed. Laptop also sets up some basics that are required by the bootstrap script later on.
+* Step 2 (recommended): Use `oh-my-zsh`?
+* Step 3 (optional): Install NVM?
+* Step 4 (required): The dotfiles. Update the `$DOTFILES_*` variables (see [`bootstrap`](https://github.com/joshukraine/mac-bootstrap/blob/master/bootstrap) under "Variable declarations") to reference your dotfiles. As a starting point, you can [fork mine](http://jsua.co/dotfiles) and then point to your fork.
+* Step 5 (recommended): Install scripts to `~/bin`?
+* Step 6 (recommended): Install and configure Tmuxinator?
+* Step 7 (optional): Install Ukrainian language utilities? Maybe you're interested in some [other language extensions](http://extensions.services.openoffice.org/en/search?f[0]=field_project_tags%3A157)?
+* Step 8 (optional): Install fixed-width fonts?
+* Step 9 (recommended): Use Vundle? If you prefer a different plugin manager, you can add the code for that to this section.
+* Step 10 (optional): Review general macOS settings in `install/macos-defaults` and adjust as needed. `install/macos-dock` ensures that the dock contains only the apps you select. Adjust as desired. (NOTE: The `macos-dock` script depends on the `dockutil` package installed by Homebrew.)
 
 3) Create `~/.gitconfig.local` and `~/.zshrc.local` and add in your personal information. These files are sourced in `~/.gitconfig` and `~/.zshrc` respectively.
 
@@ -131,17 +138,18 @@ No one else's development setup will ever be a perfect match for you. That said,
 5) Run the script on your machine and wait for the first error. :) Then fix, commit, push, and repeat.
 
 
-### Some of my favorite dotfile repos
+Some of my favorite dotfile repos
+---------------------------------
 
 * Pro Vim (https://github.com/Integralist/ProVim)
 * Trevor Brown (https://github.com/Stratus3D/dotfiles)
+* Chris Toomey (https://github.com/christoomey/dotfiles)
+* thoughtbot (https://github.com/thoughtbot/dotfiles)
 * Lars Kappert (https://github.com/webpro/dotfiles)
 * Ryan Bates (https://github.com/ryanb/dotfiles)
-* thoughtbot (https://github.com/thoughtbot/dotfiles)
 * Ben Orenstein (https://github.com/r00k/dotfiles)
 * Joshua Clayton (https://github.com/joshuaclayton/dotfiles)
 * Drew Neil (https://github.com/nelstrom/dotfiles)
-* Chris Toomey (https://github.com/christoomey/dotfiles)
 * Kevin Suttle (https://github.com/kevinSuttle/OSXDefaults)
 * Carlos Becker (https://github.com/caarlos0/dotfiles)
 * Zach Holman (https://github.com/holman/dotfiles/)
@@ -149,7 +157,8 @@ No one else's development setup will ever be a perfect match for you. That said,
 * Paul Irish (https://github.com/paulirish/dotfiles)
 
 
-### Helpful web resources on dotfiles, et al.
+Helpful web resources on dotfiles, et al.
+-----------------------------------------
 
 * http://dotfiles.github.io/
 * https://medium.com/@webprolific/getting-started-with-dotfiles-43c3602fd789
